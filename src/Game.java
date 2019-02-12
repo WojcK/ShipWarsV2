@@ -279,7 +279,7 @@ public class Game {
             return currentSessionHolder.getTextArea().getLineCount() +". SHIP: " + fieldss.getShipType() + "\t" +
                     "YOU HAVE NEXT MOVE! ";
         } else{
-            return currentSessionHolder.getTextArea().getLineCount() +". MISS! END OF YOUR TURN! ";
+            return currentSessionHolder.getTextArea().getLineCount() +". MISS!"+"\t\t" +" END OF YOUR TURN! ";
         }
     }
 
@@ -300,27 +300,27 @@ public class Game {
 
             switch (ships) {
                 case DESTROYER:
-                    addText(currentSessionHolder,Ships.DESTROYER + " DESTROYED!");
+                    addText(currentSessionHolder,Ships.DESTROYER+"\t" + " DESTROYED!");
                     currentSessionHolder.getPlayerBoard().setDestroyerNo();
                     break;
 
                 case SUBMARINE:
                     if(ships.getLives()%2 ==0) {
-                        addText(currentSessionHolder,Ships.SUBMARINE + " DESTROYED!");
+                        addText(currentSessionHolder,Ships.SUBMARINE+"\t" + " DESTROYED!");
                         currentSessionHolder.getPlayerBoard().setSubmarineNo();
                     }
                     break;
 
                 case CRUISER:
                     if(ships.getLives()%3 == 0) {
-                        addText(currentSessionHolder, Ships.CRUISER + " DESTROYED!");
+                        addText(currentSessionHolder, Ships.CRUISER+"\t" + " DESTROYED!");
                         currentSessionHolder.getPlayerBoard().setCruiserNo();
                     }
                     break;
 
                 case BATTLESHIP:
                     if(ships.getLives()%4 == 0) {
-                        addText(currentSessionHolder, Ships.BATTLESHIP + " DESTROYED!");
+                        addText(currentSessionHolder, Ships.BATTLESHIP +"\t" + " DESTROYED!");
                         currentSessionHolder.getPlayerBoard().setBattleshipNo();
                     }
                     break;
@@ -449,9 +449,6 @@ public class Game {
         @Override
         public void mouseClicked (MouseEvent e) {
             super.mouseClicked(e);
-
-
-
                 Fieldss fieldss = (Fieldss) e.getSource();
                 if (fieldss.isShip()) {
                     System.out.println("SHIP!");
