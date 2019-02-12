@@ -23,34 +23,8 @@ public class WaterField extends Fieldss{
         this.setPreferredSize(new Dimension(40,40));
         this.setSize(new Dimension(40,40));
         this.setBackground(Color.BLUE);
-        //this.addMouseListener(mouseListener2);
-        //this.addMouseListener(mouseListener3);
         this.setOpaque(true);
     }
-
-    public MouseListener mouseListener = new MouseAdapter() {
-        @Override
-        public void mouseClicked (MouseEvent e) {
-            super.mouseClicked(e);
-            setBackground(Color.BLACK);
-        }
-    };
-
-    public MouseListener mouseListener2 = new MouseAdapter() {
-        @Override
-        public void mouseEntered (MouseEvent e) {
-            super.mouseEntered(e);
-            setBackground(Color.RED);
-        }
-    };
-
-    public MouseListener mouseListener3 = new MouseAdapter() {
-        @Override
-        public void mouseExited (MouseEvent e) {
-            super.mouseExited(e);
-            setBackground(Color.BLUE);
-        }
-    };
 
     public int getxPos () {
         return xPos;
@@ -73,15 +47,6 @@ public class WaterField extends Fieldss{
     public boolean isShip () {
         return isShip;
     }
-
-//    @Override
-//    void setDestroyed () {
-//    }
-//
-//    @Override
-//    boolean isDestroyed () {
-//        return false;
-//    }
 
     @Override
     void setShoot () {

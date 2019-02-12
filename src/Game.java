@@ -40,6 +40,9 @@ public class Game {
 
     }
 
+    /**
+     * Function responsible for starting a game, starting window will appear.
+     */
     public void start () {
         window = new JFrame("choose player");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,20 +70,28 @@ public class Game {
         window.setVisible(true);
     }
 
-
+    /**
+     * Function responsible for initializing player 1 board and removing old MouseListeners.
+     */
     private void initializeP1 () {
         humanPlayer1.setEnemyBoard(humanPlayer2.getPlayerBoard());
         humanPlayer1.getPlayerBoard().removeListener();
         humanPlayer1.getEnemyBoard().removeListener();
     }
 
+    /**
+     * Function responsible for initializing player 2 board and removing old MouseListeners.
+     */
     private void initializeP2 () {
         humanPlayer2.setEnemyBoard(humanPlayer1.getPlayerBoard());
         humanPlayer2.getEnemyBoard().removeListener();
         humanPlayer2.getPlayerBoard().removeListener();
     }
 
-
+    /**
+     * Showing main window of the game for specific player.
+     * @param player - get player witch turn is now.
+     */
     private void playerBoard (HumanPlayer player) {
         jFrame = new JFrame(player.toString());
         jFrame.setSize(820, 600);
@@ -107,16 +118,16 @@ public class Game {
         wholePanel.add(jPanel);
         wholePanel.add(lowerPanel);
 
-
-
-
-
-
         jFrame.add(wholePanel);
         jFrame.setVisible(true);
 
     }
 
+    /**
+     * Initialization current player board.
+     * @param player - current player.
+     * @return - JPanel witch contain current player board.
+     */
     private JPanel pBoard (HumanPlayer player) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(10, 10));
@@ -142,7 +153,11 @@ public class Game {
     }
 
 
-
+    /**
+     * Initialization enemy player board.
+     * @param player - enemy player.
+     * @return - JPanel witch contain enemy player board.
+     */
     private JPanel eBoard (HumanPlayer player) {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(10, 10));
@@ -168,10 +183,14 @@ public class Game {
                 jPanel.add(player.getEnemyBoard().getBoard()[i][j]);
             }
         }
-
         return jPanel;
     }
 
+    /**
+     * Initialization of the combat logs for specific player.
+     * @param player - specific player.
+     * @return - JPanel witch contain scrollable text area.
+     */
     private JPanel combatLogs(HumanPlayer player) {
         JPanel jPanel = new JPanel();
         JTextArea jTextArea = player.getTextArea();
@@ -194,6 +213,10 @@ public class Game {
         return jPanel;
     }
 
+    /**
+     * Initialization of the area that shows enemy ships we still needs to destroy.
+     * @return - JPanel witch contain labels with info about enemy ship.
+     */
     private JPanel shipsLeft() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
@@ -212,6 +235,10 @@ public class Game {
         return jPanel;
     }
 
+    /**
+     * Update of specific player labels.
+     * @param player - player whose labels should get updated.
+     */
     private void updateLabels(HumanPlayer player) {
         destroyer.setText(Ships.DESTROYER  +" to annihilate: " + player.getPlayerBoard().getDestroyerNo());
         battleShip.setText(Ships.BATTLESHIP + " to annihilate: " + player.getPlayerBoard().getBattleshipNo());
@@ -219,6 +246,9 @@ public class Game {
         submarine.setText(Ships.SUBMARINE +" to annihilate: " + player.getPlayerBoard().getSubmarineNo());
     }
 
+    /**
+     * Win condition.
+     */
     private void checkWin() {
         if(nextPlayer.getLives() == 0) {
             System.out.println("WIN - " + currentSessionHolder + "!");
@@ -229,11 +259,21 @@ public class Game {
         }
     }
 
+    /**
+     * Add text to the player text area.
+     * @param player - player whose text area should be updated of given text.
+     * @param string - string witch should be added.
+     */
     private void addText(Player player,String string){
 
         player.getTextArea().append(string + "\r\n");
     }
 
+    /**
+     *
+     * @param fieldss - field where we shoot.
+     * @return - string that depends on field we have shoot.
+     */
     private String isShip(Fieldss fieldss){
         if(fieldss.isShip()) {
             return currentSessionHolder.getTextArea().getLineCount() +". SHIP: " + fieldss.getShipType() + "\t" +
@@ -249,10 +289,11 @@ public class Game {
 //        }
 //    }
 
+    /**
+     * Check if ship we are bombarding got destroyed.
+     * @param o - Object we shoot at.
+     */
     private void checkIfDestroyed(Object o) {
-
-
-
         if(o instanceof Ships) {
             Ships ships = (Ships)o;
             ((Ships)o).decreasLives();
@@ -288,6 +329,9 @@ public class Game {
         }
     }
 
+    /**
+     * Buffer between next player turn.
+     */
     private void temporaryWindow() {
         temp = new JFrame();
         temp.setSize(820,600);

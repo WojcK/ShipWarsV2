@@ -74,7 +74,9 @@ public class PlayerBoard {
     //------------------------------------SETUP STAGE-----------------------------------------------
     //----------------------------------------------------------------------------------------------
 
-
+    /**
+     *  Function responsible for showing window in setup stage.
+     */
     public void setupStage(){
 
         positon = new JComboBox(Placement.values());
@@ -84,7 +86,6 @@ public class PlayerBoard {
 
 
         setupStage = new JFrame("Setup Stage");
-        //setupStage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setupStage.setSize(new Dimension(800,400));
 
         JPanel container = new JPanel();
@@ -98,10 +99,11 @@ public class PlayerBoard {
         setupStage.setVisible(true);
     }
 
-    private void finishSetup() {
-        setupStage.setVisible(false);
-    }
 
+    /**
+     *  Initialization of the board.
+     * @return - JPanel witch contain board of buttons.
+     */
     private JPanel boardSetupArea() {
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new GridLayout(10,10));
@@ -110,26 +112,28 @@ public class PlayerBoard {
                 jPanel.add(fields[i][j]);
             }
         }
-
-//        for(int i = 0; i < fields.length; i++) {
-//            for(int j = 0; j < fields[0].length; j++) {
-//                fields[i][j].addMouseListener(getPosition);
-//            }
-//        }
         return jPanel;
     }
 
+
+    /**
+     *  Initialization of the middle area of setup stage window.
+     * @return - JPanel witch contain check boxes with ships type and positions.
+     */
     private JPanel middleArea() {
 
         JPanel jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel,BoxLayout.Y_AXIS));
-        //jPanel.add(placeShip4());
         jPanel.add(positon);
         jPanel.add(ships);
 
         return jPanel;
     }
 
+    /**
+     *  Initialization of the right area of the setup stage window.
+     * @return - JPanel witch contain labels with information of placed ships and buttons.
+     */
     private JPanel rightRightArea() {
 
         JPanel jPanel = new JPanel();
@@ -175,9 +179,9 @@ public class PlayerBoard {
     }
 
 
-
-
-
+    /**
+     * Function responsible for clearing board, setting all fields as WaterField.
+     */
     private void clearBoard() {
         for(int i =0; i < fields.length; i++) {
             for(int j = 0; j < fields[0].length; j++) {
@@ -192,7 +196,8 @@ public class PlayerBoard {
         cruiserNo = 0;
         battleshipNo = 0;
 
-        //setupStage.dispatchEvent(new WindowEvent(setupStage, WindowEvent.WINDOW_CLOSING));
+        setupStage.dispatchEvent(new WindowEvent(setupStage, WindowEvent.WINDOW_CLOSING));
+        setupStage();
 
     }
 
@@ -240,6 +245,10 @@ public class PlayerBoard {
         return fields;
     }
 
+
+    /**
+     * Function responsible for removing MouseListener from fields after finished setup.
+     */
     public void removeListener() {
         for(int i = 0; i < fields.length; i++) {
             for(int j = 0; j < fields[0].length; j++) {
@@ -248,6 +257,9 @@ public class PlayerBoard {
         }
     }
 
+    /**
+     * Painting board with adequate colors depending on the type of the field.
+     */
     public void paint(){
         for(int i = 0; i < fields.length; i++) {
             for(int j = 0; j < fields[0].length; j++) {
@@ -272,6 +284,10 @@ public class PlayerBoard {
         }
     }
 
+    /**
+     *
+     * @param arrayList - empty arrayList, where all ships will be added.
+     */
     private void addToArrayList(ArrayList<Ships> arrayList) {
         for (Ships ships: Ships.values()) {
             for(int i = 0; i < ships.getQuantity(); i++) {
@@ -284,10 +300,11 @@ public class PlayerBoard {
         //arrayList.forEach((n) -> addShipRandom(n));
     }
 
-
+    /**
+     * Function responsible for adding ships to the board, when player choose auto add.
+     * @param arrayList - arrayList witch must contain all ships.
+     */
     private void addShipRandom(ArrayList<Ships> arrayList) {
-
-        //TODO
 
         arrayList.forEach(ships -> {
 
@@ -330,6 +347,14 @@ public class PlayerBoard {
         });
     }
 
+    /**
+     * Check if ship we want to place is in boundaries of our board.
+     * @param xPos - x position of the beginning field.
+     * @param yPos - y position of the beginning field.
+     * @param ships - type of placed ship (from enum Ships).
+     * @param placement - placement of placed ship.
+     * @return - true if given ship is in the boundaries, false if not.
+     */
     private boolean inBoundaries(int xPos, int yPos, Ships ships, Placement placement) {
         if(placement == Placement.HORIZONTAL) {
             return (xPos + ships.getFields()) <=10;
@@ -340,6 +365,14 @@ public class PlayerBoard {
         return true;
     }
 
+    /**
+     * Check if the space around ship we want to place is free.
+     * @param xPos - x position of the beginning field.
+     * @param yPos - y position of the beginning field.
+     * @param ships - type of placed ship (from enum Ships).
+     * @param placement - placement of placed ship.
+     * @return - true if there is ship nearby, false is there is not.
+     */
     private boolean checkShipsNearby(int xPos, int yPos, Ships ships, Placement placement) {
         if(placement == Placement.HORIZONTAL) {
             for (int i = 0; i < ships.getFields(); i++) {
@@ -377,6 +410,11 @@ public class PlayerBoard {
         return  false;
     }
 
+    /**
+     * Check if another ship of given type can be placed and update counters.
+     * @param ships - type of placed ship (from enum Ships).
+     * @return - true if ship can be placed, false if not.
+     */
     private boolean addAndCheckQuantity(Ships ships) {
         switch (ships) {
             case CRUISER:
@@ -467,7 +505,7 @@ public class PlayerBoard {
             }
 
             if(num == 20) {
-                finishSetup();
+                setupStage.setVisible(false);
                 showHelp();
                 setFinished(true);
                 removeListener();
@@ -600,6 +638,8 @@ public class PlayerBoard {
             super.mouseClicked(e);
             clearBoard();
             addShipRandom(shipsArrayList);
+            setupStage.dispatchEvent(new WindowEvent(setupStage, WindowEvent.WINDOW_CLOSING));
+            setupStage();
 
         }
     };

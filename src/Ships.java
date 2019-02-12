@@ -23,10 +23,6 @@ public enum Ships {
         return quantity;
     }
 
-    public void decreaseQuantity() {
-        this.quantity = quantity - 1;
-    }
-
     public int getFields () {
         return fields;
     }
@@ -41,10 +37,6 @@ public enum Ships {
 
     @Override
     public String toString(){
-        return name + "(" + fields + ")";
-    }
-
-    public String getName() {
         return name + "(" + fields + ")";
     }
 

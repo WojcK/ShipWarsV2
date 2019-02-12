@@ -23,7 +23,12 @@ public class HumanPlayer implements Player{
         this.textArea = new JTextArea();
     }
 
-
+    /**
+     *
+     * @param x - x position of shot;
+     * @param y - y posioton of shot;
+     * @param player - players witch is going to be shot;
+     */
     @Override
     public void shootAt (int x, int y, Player player) {
         if(enemyBoard.getBoard()[y][x].isShip() && !enemyBoard.getBoard()[y][x].isShoot()) {
@@ -57,17 +62,10 @@ public class HumanPlayer implements Player{
         return this.enemyBoard;
     }
 
-    public void setPlayerBoard (PlayerBoard playerBoard) {
-        this.playerBoard = playerBoard;
-    }
-
     public void setEnemyBoard (PlayerBoard enemyBoard) {
         this.enemyBoard = enemyBoard;
     }
 
-    public void showBoard(PlayerBoard playerBoard) {
-        playerBoard.showHelp();
-    }
     public void show() {
         System.out.println("Player Board: ");
         playerBoard.showHelp();
