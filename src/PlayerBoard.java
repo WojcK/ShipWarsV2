@@ -96,6 +96,7 @@ public class PlayerBoard {
         container.add(rightRightArea());
 
         setupStage.add(container);
+        setupStage.setLocationRelativeTo(null);
         setupStage.setVisible(true);
     }
 
