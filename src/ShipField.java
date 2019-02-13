@@ -58,15 +58,6 @@ public class ShipField extends Fieldss {
         return isShip;
     }
 
-//    @Override
-//    void setDestroyed () {
-//        this.destroyed = true;
-//    }
-//
-//    @Override
-//    boolean isDestroyed () {
-//        return destroyed;
-//    }
 
     @Override
     void setShoot () {

@@ -152,7 +152,6 @@ public class Game {
         return jPanel;
     }
 
-
     /**
      * Initialization enemy player board.
      * @param player - enemy player.
@@ -411,6 +410,8 @@ public class Game {
                     nextPlayer = humanPlayer2;
                     p1Turn = !p1Turn;
                     temp.setVisible(false);
+                    updateLabels(currentSessionHolder);
+
                 } else {
                     jFrame.setVisible(false);
                     playerBoard(humanPlayer2);
@@ -419,7 +420,7 @@ public class Game {
                     nextPlayer = humanPlayer1;
                     p1Turn = !p1Turn;
                     temp.setVisible(false);
-
+                    updateLabels(currentSessionHolder);
                 }
             }
         }
@@ -433,11 +434,10 @@ public class Game {
                 if (p1Turn) {
                     jFrame.setVisible(false);
                     temporaryWindow();
-                    updateLabels(nextPlayer);
                 } else {
                     jFrame.setVisible(false);
                     temporaryWindow();
-                    updateLabels(nextPlayer);
+                    updateLabels(currentSessionHolder);
 
                 }
             }
